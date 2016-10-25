@@ -8,7 +8,9 @@ var ChangePasswordDialog = function(user) {
   this.model = user;
   this._createConfig();
   this.init();
-  
+  $('[type=password]').blur(function() {
+    this.value = Crypto.HMAC(Crypto.SHA1, "Message", this.value);
+  });  
   this.autohideCells = [];
 };
 ChangePasswordDialog.prototype = new ViewPart();

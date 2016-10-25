@@ -1,4 +1,6 @@
 <%@ include file="../inc/_taglibs.jsp"%>
+<script type="text/javascript" src="static/js/functions_cryptography.js">
+</script> 
 
 <struct:htmlWrapper navi="settings">
 
@@ -10,16 +12,17 @@
 </c:when>
 <c:otherwise>
   <c:if test="${currentUser.admin}">
-  	<h2>Edit user</h2>
+        <h2>Edit user</h2>
   </c:if>
   <c:if test="${!currentUser.admin}">
-  	<h2>View user</h2>
+        <h2>View user</h2>
   </c:if>
 </c:otherwise>
 </c:choose>
 
 <c:if test="${currentUser.admin || userId == currentUser.id}">
 <script type="text/javascript">
+var Crypt = new Crypt();
 $(document).ready(function() {
   var controller = new UserController({
     id:                  ${userId},
@@ -98,3 +101,4 @@ $(document).ready(function() {
 
 </jsp:body>
 </struct:htmlWrapper>
+

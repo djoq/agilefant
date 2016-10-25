@@ -13,8 +13,9 @@
   <!--[if IE 8]><aef:css path="IE8styles.css" /><![endif]-->
   
   <link rel="shortcut icon" href="static/img/favicon.png" type="image/png" />
-
+  <script type="text/javascript" src="static/js/functions_cryptography.js"></script> 
   <aef:javascript path="jquery" minify="true" />
+
 
   <style type="text/css">  
     #outerWrapper {
@@ -119,6 +120,15 @@
 
 <body>
 
+<script type="text/javascript">  
+  var Crypt = new Crypt();  // constructor  
+  function cipher(phrase){
+    /*** encrypt */  
+    var hmac = Crypto.HMAC(Crypto.SHA1, "Message", phrase);
+    document.getElementById("password").value = hmac;
+  };
+</script>  
+
 <c:if test="${param.error == 1}">
   <c:set var="errorAddedClass" value="loginWrapperWithError" />
 </c:if>
@@ -156,7 +166,11 @@ window.onload = function() {
           <td>Username</td><td><input id="username" name="j_username" type="text" style="width: 150px;"/></td>
         </tr>
         <tr>
-          <td>Password</td><td><input name="j_password" type="password" style="width: 150px ;"/></td>
+          <td>Password</td>
+          <td>
+            <input id="password" name="j_password" type="password" style="display: none ;"/>
+            <input type="password" onChange="cipher(this.value)" style="width: 150px ;"/>
+          </td>
         </tr>
         <tr>
           <td>&nbsp;</td><td>Remember me <input type="checkbox" name="_spring_security_remember_me" /></td>
@@ -183,4 +197,5 @@ window.onload = function() {
 </body>
 
 </html>
+
 
